@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { Container } from "react-grid-system";
+import { Select } from "antd";
+import appID from "../../config/appID";
+import { weatherAPI } from "../../api";
+
+const { Option } = Select;
 const styles = require("./index.module.scss");
 
 interface weatherConfig {
@@ -8,11 +13,10 @@ interface weatherConfig {
 
 const Weather: React.FC = () => {
   const [weatherState, setWeatherState] = useState<weatherConfig>({});
-  const fetchWeather = async () => {
+
+  const fetchWeather = async (city: string) => {
     try {
-      const { data } = await axios.get(
-        "http://api.openweathermap.org/data/2.5/weather?q=Ufa,ru&appid=79ad50b6530fe52fe585772ecf0c4a99"
-      );
+      const { data } = await weatherAPI.getWeatherFromCity({ city, appID });
       setWeatherState(data);
     } catch (error) {
       console.log(error);
@@ -20,10 +24,26 @@ const Weather: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchWeather();
+    fetchWeather("Ufa");
   }, []);
 
-  return <div className={styles["weather"]}>{weatherState?.name}</div>;
+  return (
+    <Container>
+      <div className={styles["weather"]}>
+        <Select
+          defaultValue="Ufa"
+          style={{ width: 120 }}
+          bordered={false}
+          onChange={(value) => fetchWeather(value)}
+        >
+          <Option value="Ufa">Ufa</Option>
+          <Option value="Moscow">Moscow</Option>
+          <Option value="Kazan">Kazan</Option>
+        </Select>
+        {weatherState?.name}
+      </div>
+    </Container>
+  );
 };
 
 export default Weather;
