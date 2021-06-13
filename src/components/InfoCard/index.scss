@@ -1,0 +1,11 @@
+
+.info-card {
+  &__content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    text-transform: capitalize;
+  }
+}
