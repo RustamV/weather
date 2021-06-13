@@ -1,0 +1,35 @@
+body {
+  background-color: azure;
+
+}
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  &__grid {
+    width: 450px;
+    display: grid;
+    grid-gap: 24px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.ant-card {
+  border-radius: 10px;
+  box-shadow: 1px 2px 16px rgba(#000000, 0.1);
+
+  &-body {
+    padding: 16px;
+  }
+}
+
+
